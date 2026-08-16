@@ -1,0 +1,28 @@
+name: Student Management Validation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate project files
+        run: |
+          test -f pom.xml
+          test -f Dockerfile
+          test -f src/main/java/com/example/student_management/Student.java
+          test -f src/main/java/com/example/student_management/StudentRepository.java
+          test -f src/main/java/com/example/student_management/StudentController.java
+          test -f src/main/resources/application.properties
+          test -f src/main/resources/static/index.html
+
+      - name: Validate Dockerfile
+        run: docker build --no-cache -t student-management-validation .
