@@ -7,7 +7,6 @@ COPY mvnw .
 COPY pom.xml .
 
 RUN chmod +x mvnw
-RUN ./mvnw dependency:go-offline -DskipTests
 
 COPY src src
 
@@ -17,7 +16,7 @@ FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
-COPY --from=build /app/target/student-management-1.0.0.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
